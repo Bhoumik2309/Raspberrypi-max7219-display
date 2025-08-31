@@ -1,0 +1,11 @@
+#Libraries we need to install
+
+sudo pip3 install setuptools
+sudo pip3 install --upgrade luma.led_matrix 
+
+#if there is a any problem for install in library
+
+sudo pip3 install setuptools --break-system-packages
+sudo pip3 install --upgrade luma.led_matrix --break-system-packages
+
+#use this only when libraries are not installed
