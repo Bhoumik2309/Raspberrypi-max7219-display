@@ -1,0 +1,29 @@
+from luma.led_matrix.device import max7219
+from luma.core.interface.serial import spi, noop
+from luma.core.render import canvas
+from luma.core.legacy import text, show_message
+from luma.core.legacy.font import proportional, CP437_FONT
+
+from datetime import datetime
+import time
+
+# Create a serial interface for the display
+# We are using SPI protocol, which is standard for the Raspberry Pi
+serial = spi(port=0, device=0, gpio=noop())
+
+# Create a device object to control the MAX7219 display
+# cascaded=4 means we have four 8x8 LED matrix modules chained together
+# block_orientation=-90 rotates the display to the correct viewing angle
+# blocks_arranged_in_reverse_order=True is for specific wiring setups
+device = max7219(serial, cascaded=4, block_orientation=-90, blocks_arranged_in_reverse_order=True)
+
+# Set the brightness of the display (value from 0 to 100)
+device.contrast(50)
+
+# Main loop to continuously display content
+while True:
+    # Use the 'show_message' function to display "Hello" as a scrolling message.
+    # 'fill="Red"' sets the LED color to Red.
+    # 'font=(CP437_FONT)' specifies the font to be used.
+    # 'scroll_delay=0.08' controls the scrolling speed; a smaller number is faster.
+    show_message(device, "Hello", fill="Red", font=(CP437_FONT), scroll_delay=0.08)
